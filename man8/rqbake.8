@@ -9,16 +9,15 @@ rqbake \- unfreeze YRMX and resume operation
 .fi
 .SH DESCRIPTION
 The situation existing before rqfreeze is ripristinated.
-But it's still buggy.
-.B Don't use it until it's fixed.
+You must be a little careful with tasks in timed wait: they're frozen when they 
+become running. Therefore when you unfreeze, they're activated just in order of
+priority, disregarding the timing constraints.
 .sp
 .SH "RETURN VALUE"
-None. The task running when rqfreeze was called is made running again.
+None. The tasks running when rqfreeze was called are made running again.
 .sp
 .SH "ERRORS"
-None.
+None I'm aware of.
 .sp
-.SH "BUGS"
-.B Just one. IT DOESN'T WORK.
 .SH "SEE ALSO"
 .BR rqfreeze (8)

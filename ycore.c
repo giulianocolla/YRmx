@@ -718,7 +718,9 @@ void reqctsk(STATIC_TASK_DESCRIPTOR *std) {
 		s = pthread_create(&thread,NULL,(void *)reqrun,td);
 		if (s) handle_error_en(s,"create task: pthread_create");
 		}
+#ifdef __USE_GNU // pthread_setname is GNU only 
 	pthread_setname_np(thread,std->name);
+#endif
 //#ifdef VERBOSE	
 	s = pthread_getschedparam(thread,&policy,&param);
 	if (s) handle_error_en(s,"pthread_getschedparam");

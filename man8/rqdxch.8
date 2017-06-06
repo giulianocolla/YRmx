@@ -9,20 +9,20 @@ rqdxch \- delete an exchange
 .fi
 .SH DESCRIPTION
 A check is performed on exchange usage. If the exchange is not
-in use then the caller is notified.
+in use then the exchange is removed from the exchange list. If the exchange is in use no action is performed and zero is returned.
 .sp
 .SH "RETURN VALUE"
-A non-zero value if the exchange is unused, zero otherwise.
+A non-zero value if the exchange has been successfully removed, zero otherwise.
 .sp
 .SH "ERRORS"
 None.
 .sp
 .SH "NOTE"
-It's a pretty useless function which has been put there for
-completeness.
+An exchange cannot be safely fully deleted, because at a later time a task might attempt to send a message
+or wait for a message. Therefore the exchange is just removed from the exchange list, and that's all. It's a pretty useless function which has been put there for
+completeness. 
 .sp
 .SH "BUGS"
-The exchange is not removed from the exchange list, which is used by
-proc fs to display system status.
+The name of the function is misleading.
 .SH "SEE ALSO"
 .BR rqcxch (8)

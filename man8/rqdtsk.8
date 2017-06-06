@@ -10,7 +10,6 @@ rqdtsk \- delete a task
 .SH DESCRIPTION
 The task is removed from the system, and the allocated stack is
 made free.
-An attempt to delete Linux task has no effect.
 Deleting an already deleted task has no effect.
 .sp
 .SH "RETURN VALUE"
@@ -20,9 +19,6 @@ None.
 None.
 .sp
 .SH "BUGS"
-.RB "Deleting the running task " rqdtsk(rqactv) " seems not to work properly."
-.RB "It is advisable to let the task suspend itself " rqsusp(rqactv) " , and"
-have it deleted later by another task, or by the module cleanup code,
-which runs in Linux task environment.
+None I'm aware of, so far.
 .SH "SEE ALSO"
 .BR rqctsk (8)

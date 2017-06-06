@@ -1,6 +1,6 @@
 .TH rqfreeze 8 "Nov 21,2015" "YRMX" "YRMX System Suspend/Resume"
 .SH NAME
-rqfreeze \- freeze YRMX and give control to Linux
+rqfreeze \- freeze YRMX in its current state
 .SH SYNOPSIS
 .fi
 .B #include <ycore.h>
@@ -8,18 +8,17 @@ rqfreeze \- freeze YRMX and give control to Linux
 .BI "void rqfreeze(void)"
 .fi
 .SH DESCRIPTION
-All YRMX interrupts are disabled, all tasks are removed from the ready
-list, and the only task runnable is Linux.
-The saved status is available to the proc fs, which may show all
-relevant information.
-It's useful for debug, and for termination, because all resources can
-be removed without worrying about dependencies.
+All YRMX interrupts are disabled, all tasks when they become running are suspended.
+The current status can be analyzed with the debug functions.
+It can be useful for debugging.
+.br
+.RB "YRMX can be reactivated (unfrozen) with " " rqbake() ".
+.sp
 Calling rqfreeze with YRMX already frozen has no effect.
 .sp
 .SH "RETURN VALUE"
-None. If called from within a task different from Linux, control
-doesn't return to the task unless the system is subsequently unfrozen
-(baked).
+None. If called from within a task different from the root task, control
+doesn't return to the task unless the system is subsequently unfrozen.
 .sp
 .SH "ERRORS"
 None.

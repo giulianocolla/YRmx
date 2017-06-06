@@ -8,9 +8,8 @@ rqsusp \- suspend a task
 .BI "void rqsusp(TASK_DESCRIPTOR *" task " )"
 .fi
 .SH DESCRIPTION
-If the task is running or ready, it is removed from the ready list,
-and queued in the suspend list.
-If the task is waiting, it is suspended as soon as it becomes ready.
+If the required task is running i.e. a task suspends itself, it is suspended. 
+If the required task is waiting, it is suspended as soon as it becomes runnable.
 Suspending an already suspended task has no effect.
 .sp
 .SH "RETURN VALUE"
