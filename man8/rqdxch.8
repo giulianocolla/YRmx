@@ -1,0 +1,28 @@
+.TH rqdxch 8 "Nov 21,2015" "YRMX" "YRMX Deletion Functions"
+.SH NAME
+rqdxch \- delete an exchange
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "int rqdxch( EXCHANGE_DESCRIPTOR *" exch " )"
+.fi
+.SH DESCRIPTION
+A check is performed on exchange usage. If the exchange is not
+in use then the caller is notified.
+.sp
+.SH "RETURN VALUE"
+A non-zero value if the exchange is unused, zero otherwise.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "NOTE"
+It's a pretty useless function which has been put there for
+completeness.
+.sp
+.SH "BUGS"
+The exchange is not removed from the exchange list, which is used by
+proc fs to display system status.
+.SH "SEE ALSO"
+.BR rqcxch (8)

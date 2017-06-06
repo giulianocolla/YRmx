@@ -1,0 +1,27 @@
+.TH rqsusp 8 "Nov 21,2015" "YRMX" "YRMX Suspend/Resume"
+.SH NAME
+rqsusp \- suspend a task
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "void rqsusp(TASK_DESCRIPTOR *" task " )"
+.fi
+.SH DESCRIPTION
+If the task is running or ready, it is removed from the ready list,
+and queued in the suspend list.
+If the task is waiting, it is suspended as soon as it becomes ready.
+Suspending an already suspended task has no effect.
+.sp
+.SH "RETURN VALUE"
+None. If a task supend itself, the function will return only if the
+task is resumed by another task. If a task suspends another, control
+returns to calling task.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.BR rqresm (8)

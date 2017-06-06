@@ -1,0 +1,26 @@
+.TH rqsetv 8 "Nov 21,2001" "YALRT" "YALRT Interrupt Handling"
+.SH NAME
+rqsetv \- assign an interrupt handler
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void reqsetv(int " irq ",void ( " *handler ")(void))"
+.fi
+.SH DESCRIPTION
+.RI "The handler " handler " is assigned to the interrupt " irq "."
+.RI "If " *handler " is a NULL pointer, then the previous handler is"
+de-activated and the default handler is re-installed.
+After a call to rqsetv, the corresponding interrupt is disabled,
+and a call to rqelvl is required to enable it.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqelvl (8), rqdlvl (8)

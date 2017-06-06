@@ -1,0 +1,12 @@
+Per migliorare il comportamento:
+abolire sem_timedwait, e reintrodurre il task DELAY.
+Introdurre una routine di timer che usa clock_nanosleep per dormire un tick.
+Usando come clock il CLOCK_MONOTONIC ci si assicura che il clock non venga
+modificato.
+Usando come flag TIMER_ABSTIME si evitano problemi di slittamento:
+alla partenza si usa clock_gettime() e ogni volta si aggiunge il Tick.
+Per assicurarsi che il Tick sia un multiplo esatto della risoluzione,
+usare clock_getres().
+
+2 Giugno 2017
+Aggiunto pthread-setname_np per vedere i nomi dei task con top.

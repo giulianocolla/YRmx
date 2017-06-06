@@ -1,0 +1,27 @@
+--- ycore.c	2014-04-03 19:01:45.000000000 +0200
++++ ../0YRmx/ycore.c	2014-03-30 23:42:37.000000000 +0200
+@@ -41,7 +41,7 @@
+   return (0);
+     }
+ #define NEVER 0xFFFF
+-struct timespec tsNEVER = {365,0}; // One year!
++struct timespec tsNEVER = {365,0};
+ 
+ //#define VERBOSE
+ #ifdef VERBOSE
+@@ -867,6 +867,7 @@
+ 				}
+ 			}
+ 		/* Here the message has been received */
++		rqactv->status = running;
+ 		}
+ 	else {
+ 		/*printk("reqdqmsg\n");*/
+@@ -881,7 +882,6 @@
+ 		rqfreeze();
+ 		}
+ 	exit_region(rqactv);
+-	rqactv->status = running;
+ 	return rqactv->message;
+ 	}
+ 

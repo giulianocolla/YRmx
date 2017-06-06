@@ -1,0 +1,45 @@
+.TH rqendi 8 "Nov 21,2001" "YALRT" "YALRT Interrupt Handling"
+.SH NAME
+rqendi \- notify the end of service for an interrupt without sending
+an interrupt message
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqendi ( INT_EXCHANGE_DESCRIPTOR *" int_ex " )"
+.fi
+.SH DESCRIPTION
+It is used by an interrupt handler (or interrupt subroutine, to use
+YALRT conventions), to notify that it's done, without sending  an
+interrupt message.
+Interrupt handlers aren't allowed to make system calls: rqisnd, rqendi
+and rqxsnd (not yet implemented) are the only calls allowed.
+It should be the last executable statement before return: as the
+interrupt handler executes in the running task context, any code
+following rqendi will be executed only when (and if) the currently
+running task becomes again running, which can be largely unpredictable.
+.sp
+The canonical way to terminate an interrupt handler is the following:
+.sp
+.B /* set a flag if rqisnd needed */
+.sp
+.B if (flag) rqisnd(int_ex);
+.sp
+.B    else rqendi(int_ex);
+.sp
+.B    return;
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "NOTE"
+.RB "Currently " rqendi() " does nothing, because interrupt acknowledge is"
+performed by the RTAI dispatcher but there is no guarantee that it
+will stay that way. Therefore it's better to use it.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqisnd (8)

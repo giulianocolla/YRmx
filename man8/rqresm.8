@@ -1,0 +1,26 @@
+.TH rqresm 8 "Nov 21,2015" "YRMX" "YRMX Suspend/Resume"
+.SH NAME
+rqresm \- resume a suspended task
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "void rqresm(TASK_DESCRIPTOR *" task " )"
+.fi
+.SH DESCRIPTION
+The task is removed from the suspend list and reintegrated in the
+ready list.
+Resuming a task which is not suspended has no effect.
+.sp
+.SH "RETURN VALUE"
+None. If the task resumed has higher priority than the calling task,
+then the calling task is preemped, and the resumed task becomes
+the running task.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.BR rqsusp (8)

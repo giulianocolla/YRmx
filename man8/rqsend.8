@@ -1,0 +1,26 @@
+.TH rqsend 8 "Nov 21,2015" "YRMX" "YRMX Message passing"
+.SH NAME
+rqsend \- send a message to an exchange
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "void rqsend (EXCHANGE_DESCRIPTOR *" exch ", MSG_DESCRIPTOR *" msg " )"
+.fi
+.SH DESCRIPTION
+The message is queued to the exchange specified.
+.sp
+.SH "RETURN VALUE"
+None. If a task with higher priority than the calling task was waiting
+at the exchange, then the calling task is preemped, and the receiving
+task becomes the running task.
+.sp
+.SH "ERRORS"
+If the message sent doesn't belong to the task, or if the exchange
+was not properly created, a system error is generated, and YRMX is
+frozen.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqwait (8), rqacpt (8)

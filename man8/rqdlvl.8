@@ -1,0 +1,25 @@
+.TH rqdlvl 8 "Nov 21,2001" "YALRT" "YALRT Interrupt Handling"
+.SH NAME
+rqdlvl \- disable an interrupt
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqdlvl ( int " irq ")"
+.fi
+.SH DESCRIPTION
+.BI "The interrupt " irq " is disabled."
+.BI "Disabling the timer interrupt ( " irq " = TIMER_8254_IRQ) de-activates the
+system timer.
+    Calling rqdlvl for an interrupt already disabled has no effect.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqelvl (8), rqsetv (8)

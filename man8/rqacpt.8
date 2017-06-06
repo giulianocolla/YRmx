@@ -1,0 +1,24 @@
+.TH rqacpt 8 "Nov 21,2015" "YRMX" "YRMX Message passing"
+.SH NAME
+rqacpt \- check an exchange for an available message
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "MSG_DESCRIPTOR *rqacpt ( EXCHANGE_DESCRIPTOR *" exch " )"
+.fi
+.SH DESCRIPTION
+It is a non-blocking call to receive a message from an exchange.
+.sp
+.SH "RETURN VALUE"
+If a message is available, then a pointer to that message is returned.
+if no message is available, a NULL pointer is returned.
+.sp
+.SH "ERRORS"
+If the exchange was not properly created, a system error is generated,
+and YRMX is frozen.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqwait (8), rqsend (8)

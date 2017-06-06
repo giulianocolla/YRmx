@@ -1,0 +1,24 @@
+.TH rqbake 8 "Nov 21,2015" "YRMX" "YRMX System Suspend/Resume"
+.SH NAME
+rqbake \- unfreeze YRMX and resume operation
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "void rqbake(void)"
+.fi
+.SH DESCRIPTION
+The situation existing before rqfreeze is ripristinated.
+But it's still buggy.
+.B Don't use it until it's fixed.
+.sp
+.SH "RETURN VALUE"
+None. The task running when rqfreeze was called is made running again.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+.B Just one. IT DOESN'T WORK.
+.SH "SEE ALSO"
+.BR rqfreeze (8)

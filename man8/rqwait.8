@@ -1,0 +1,35 @@
+.TH rqwait 8 "Nov 21,2015" "YRMX" "YRMX Message passing"
+.SH NAME
+rqwait \- receive a message from an exchange
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "MSG_DESCRIPTOR *rqwait(EXCHANGE_DESCRIPTOR *" exch ", unsigned short " delay " )"
+.fi
+.SH DESCRIPTION
+It is a blocking call to receive a message from an exchange.
+.RI "A non-zero " delay " specifies the amount of time in system tick units"
+the task is willing to wait. A zero value means no limit.
+Waiting at an exchange where no other task is sending messages
+provides one-shot delay or periodic scheduling functionality.
+.sp
+.SH "RETURN VALUE"
+If a message is available, then a pointer to that message is returned
+immediately.
+If no message is available, the task is put in waiting state, and the
+next task in the ready list becomes the running task.
+When a message becomes available, the task is put again on the ready
+list, and it receives a pointer to the message.
+If a time was specified, and the time expires without a message being
+.RI "available, a pointer to a system message with type " timeout_type " is"
+returned.
+.sp
+.SH "ERRORS"
+If the exchange was not properly created, a system error is generated,
+and YRMX is frozen.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqacpt (8), rqsend (8)

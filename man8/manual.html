@@ -1,0 +1,702 @@
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqacpt</TITLE>
+</HEAD><BODY>
+<H1>rqacpt</H1>
+Section: YALRT Message passing (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqacpt - check an exchange for an available message
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>MSG_DESCRIPTOR *rqacpt ( EXCHANGE_DESCRIPTOR *</B><I>exch</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+It is a non-blocking call to receive a message from an exchange.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+If a message is available, then a pointer to that message is returned.
+if no message is available, a NULL pointer is returned.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+If the exchange was not properly created, a system error is generated,
+and Yalrt is frozen.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B>rqwait (8), rqsend (8)</B>
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:00:15 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqcmsg</TITLE>
+</HEAD><BODY>
+<H1>rqcmsg</H1>
+Section: YALRT Creation Functions (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqcmsg - create a message
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>void rqcmsg(MESSAGE_DESCRIPTOR *</B><I>msg</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The message header is properly initialized for system usage.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+None.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B>rqsend (8), rqwait (8), rqacpt (8)</B>
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:01:26 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqctsk</TITLE>
+</HEAD><BODY>
+<H1>rqctsk</H1>
+Section: YALRT Creation Functions (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqctsk - create a task
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<PRE>
+
+<B>void rqctsk(STATIC_TASK_DESCRIPTOR *</B><I>std</I><B> ) </B>
+</PRE>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+Create a task from the supplied static task descriptor
+and make it ready.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None. If the task created has higher priority than the calling task,
+then the calling task is preemped, and the newly created task becomes
+the running task. Otherwise control returns immediately to calling
+task.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+If the stack can't be allocated, a system error is generated, and
+YALRT is frozen.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+No check is performed on priority. A priority of 255, which is
+forbidden, goes undetected.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?8+rqdtsk">rqdtsk</A></B>(8)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:01:43 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqcxch</TITLE>
+</HEAD><BODY>
+<H1>rqcxch</H1>
+Section: YALRT Creation Functions (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqcxch - create an exchange
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>void rqcxch( EXCHANGE_DESCRIPTOR *</B><I>exch</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The exchange structure is properly initialized for system usage.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+None.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?8+rqdtsk">rqdtsk</A></B>(8)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:01:57 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqdtsk</TITLE>
+</HEAD><BODY>
+<H1>rqdtsk</H1>
+Section: YALRT Deletion Functions (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqdtsk - delete a task
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>void rqdtsk( TASK_DESCRIPTOR *</B><I>task</I><B> ) </B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The task is removed from the system, and the allocated stack is
+made free.
+An attempt to delete Linux task has no effect.
+Deleting an already deleted task has no effect.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+None.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+Deleting the running task <B>rqdtsk(rqactv)</B> seems not to work properly.
+
+It is advisable to let the task suspend itself <B>rqsusp(rqactv)</B> , and
+
+have it deleted later by another task, or by the module cleanup code,
+which runs in Linux task environment.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?8+rqctsk">rqctsk</A></B>(8)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:02:09 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqdxch</TITLE>
+</HEAD><BODY>
+<H1>rqdxch</H1>
+Section: YALRT Deletion Functions (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqdxch - delete an exchange
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>int rqdxch( EXCHANGE_DESCRIPTOR *</B><I>exch</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+A check is performed on exchange usage. If the exchange is not
+in use then the caller is notified.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+A non-zero value if the exchange is unused, zero otherwise.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+None.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>NOTE</H2>
+
+It's a pretty useless function which has been put there for
+completeness.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<H2>BUGS</H2>
+
+The exchange is not removed from the exchange list, which is used by
+proc fs to display system status.
+<A NAME="lbAI">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?8+rqcxch">rqcxch</A></B>(8)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">NOTE</A><DD>
+<DT><A HREF="#lbAH">BUGS</A><DD>
+<DT><A HREF="#lbAI">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:02:19 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqresm</TITLE>
+</HEAD><BODY>
+<H1>rqresm</H1>
+Section: YALRT Suspend/Resume (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqresm - resume a suspended task
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>void rqresm(TASK_DESCRIPTOR *</B><I>task</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The task is removed from the suspend list and reintegrated in the
+ready list.
+Resuming a task which is not suspended has no effect.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None. If the task resumed has higher priority than the calling task,
+then the calling task is preemped, and the resumed task becomes
+the running task.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+None.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?8+rqsusp">rqsusp</A></B>(8)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:02:29 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqsend</TITLE>
+</HEAD><BODY>
+<H1>rqsend</H1>
+Section: YALRT Message passing (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqsend - send a message to an exchange
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>void rqsend (EXCHANGE_DESCRIPTOR *</B><I>exch</I><B>, MSG_DESCRIPTOR *</B><I>msg</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The message is queued to the exchange specified.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None. If a task with higher priority than the calling task was waiting
+at the exchange, then the calling task is preemped, and the receiving
+task becomes the running task.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+If the message sent doesn't belong to the task, or if the exchange
+was not properly created, a system error is generated, and Yalrt is
+frozen.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B>rqwait (8), rqacpt (8)</B>
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:02:42 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqsusp</TITLE>
+</HEAD><BODY>
+<H1>rqsusp</H1>
+Section: YALRT Suspend/Resume (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqsusp - suspend a task
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>void rqsusp(TASK_DESCRIPTOR *</B><I>task</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+If the task is running or ready, it is removed from the ready list,
+and queued in the suspend list.
+If the task is waiting, it is suspended as soon as it becomes ready.
+Suspending an already suspended task has no effect.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+None. If a task supend itself, the function will return only if the
+task is resumed by another task. If a task suspends another, control
+returns to calling task.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+None.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?8+rqresm">rqresm</A></B>(8)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:02:52 GMT, November 30, 2001
+</BODY>
+</HTML>
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of rqwait</TITLE>
+</HEAD><BODY>
+<H1>rqwait</H1>
+Section: YALRT Message passing (8)<BR>Updated: Nov 21,2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+rqwait - receive a message from an exchange
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+<B>#include &lt;<A HREF="file:/usr/include/yalrt.h">yalrt.h</A>&gt;</B>
+
+<P>
+<B>MSG_DESCRIPTOR *rqwait(EXCHANGE_DESCRIPTOR *</B><I>exch</I><B>, unsigned short </B><I>delay</I><B> )</B>
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+It is a blocking call to receive a message from an exchange.
+A non-zero <I>delay</I> specifies the amount of time in system tick units
+
+the task is willing to wait. A zero value means no limit.
+Waiting at an exchange where no other task is sending messages
+provides one-shot delay or periodic scheduling functionality.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>RETURN VALUE</H2>
+
+If a message is available, then a pointer to that message is returned
+immediately.
+If no message is available, the task is put in waiting state, and the
+next task in the ready list becomes the running task.
+When a message becomes available, the task is put again on the ready
+list, and it receives a pointer to the message.
+If a time was specified, and the time expires without a message being
+available, a pointer to a system message with type <I>timeout_type</I> is
+
+returned.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ERRORS</H2>
+
+If the exchange was not properly created, a system error is generated,
+and Yalrt is frozen.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+None I'm aware of, so far.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B>rqacpt (8), rqsend (8)</B>
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">RETURN VALUE</A><DD>
+<DT><A HREF="#lbAF">ERRORS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 11:03:02 GMT, November 30, 2001
+</BODY>
+</HTML>

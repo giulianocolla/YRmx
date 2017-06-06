@@ -1,0 +1,33 @@
+.TH rqelvl 8 "Nov 21,2001" "YALRT" "YALRT Interrupt Handling"
+.SH NAME
+rqelvl \- enable an interrupt
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqelvl ( int " irq " ) "
+.fi
+.SH DESCRIPTION
+.RI "The interrupt " irq " becomes enabled. If no interrupt handler is"
+associated with the interrupt, the default handler is used, which
+will append an interrupt message to the interrupt exchange whenever
+.RI "an interrupt occurs, with the type set to " int_type "."
+If further interrupts arrive before the message is collected by some
+.RI "task, the type is changed into " missed_int_type "."
+.RI "Enabling the timer interrupt ( " irq " = TIMER_8254_IRQ) activates the"
+system timer.
+    Calling rqelvl for an interrupt already enabled has no effect.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+Interrupt exchanges may be used also as regular exchanges, because the
+waiting task may tell apart interrupts from other messages by looking
+at the type. But calling rqelvl when a message is already queued to the
+interrupt exchange fails to initialize properly the interrupt message.
+.SH "SEE ALSO"
+.B rqdlvl (8), rqsetv (8)

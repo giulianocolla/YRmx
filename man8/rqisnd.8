@@ -1,0 +1,45 @@
+.TH rqisnd 8 "Nov 21,2001" "YALRT" "YALRT Interrupt Handling"
+.SH NAME
+rqisnd \- send the interrupt message associated with an
+interrupt exchange
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqisnd ( INT_EXCHANGE_DESCRIPTOR * " int_ex " )"
+.fi
+.SH DESCRIPTION
+It is used by an interrupt handler (or interrupt subroutine, to use
+YALRT conventions), to send an interrupt message.
+Interrupt handlers aren't allowed to make system calls: rqisnd, rqendi
+and rqxsnd (not yet implemented) are the only calls allowed.
+It should be the last executable statement before return: as the
+interrupt handler executes in the running task context, any code
+following rqisnd will be executed only when (and if) the currently
+running task becomes again running, which can be largely unpredictable.
+.sp
+The canonical way to terminate an interrupt handler is the following:
+.sp
+.B /* set a flag if rqisnd needed */
+.sp
+.B if (flag) rqisnd(int_ex);
+.sp
+.B    else rqendi(int_ex);
+.sp
+.B    return;
+.sp
+
+.SH "RETURN VALUE"
+None. If a task was waiting at the interrupt exchange with a higher
+priority than the currently running task(in whose context the
+interrupt occurred), the current task is preempted and the waiting
+task is made running.
+.sp
+
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.SH "SEE ALSO"
+.B rqendi (8), rqwait (8)

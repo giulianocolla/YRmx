@@ -1,0 +1,87 @@
+--- ycore.c	2015-07-18 11:46:01.801726488 +0200
++++ /home/colla/Applicazioni/Yrmx/ycore.c	2015-07-08 11:11:18.723574072 +0200
+@@ -54,11 +54,6 @@
+ #include <sys/mman.h>
+ #include <string.h>
+ 
+-//#define PROFILE_TIMER
+-#ifdef PROFILE_TIMER
+-#include <math.h>
+-#endif
+-
+ #include "ycore.h"
+    
+ int no_print (const char *fmt, ...) {
+@@ -124,20 +119,10 @@
+ struct timespec StartTime,CurrTime;
+ 
+ struct timespec TimeOrigin;
+-
+ /* System tick: 1ms */
+ struct timespec rqtick = {0,1000000};
+ int timetest;
+ 
+-#ifdef PROFILE_TIMER
+-struct timespec tnow;
+-int tmin = 1000000000;
+-int tmax = -1000000000;
+-int tsum = 0;
+-float K,Ex,Ex2,Mean,Var;
+-int ntick = 0;
+-#endif
+-
+ unsigned long systime[32];
+ 
+ struct sys_msg time_out_message = {
+@@ -1203,39 +1188,6 @@
+ 	forever {
+ 		err = clock_nanosleep(CLOCK_MONOTONIC,TIMER_ABSTIME,&tnext,NULL);
+ 		if (!err) {
+-#ifdef PROFILE_TIMER
+-		int diff;
+-		struct timespec tsdiff;
+-		int tdiff;
+-		if (clock_gettime(CLOCK_MONOTONIC, &tnow) == -1)
+-			handle_error("clock_gettime");
+-		diff = tsCompare(tnow,tnext); // 1 tnow > tnext; -1 tnow < tnext; 0 tnow = tnext 
+-		if (diff < 0) {
+-			tsdiff = tsSubtract(tnext,tnow);
+-			tdiff = -tsdiff.tv_nsec;
+-			}
+-		else if (diff > 0) {
+-			tsdiff = tsSubtract(tnow,tnext);
+-			tdiff = tsdiff.tv_nsec;
+-			}
+-		else {
+-			tdiff = 0;
+-			}
+-		// compute min/max and accumulate for average;
+-		if (tdiff < tmin) tmin = tdiff;
+-		else if (tdiff > tmax) tmax = tdiff;
+-		tsum += tdiff;
+-		// Compute Variance
+-		if (ntick == 0) {
+-			K = tdiff;
+-			Ex = 0;
+-			Ex2 = 0;
+-			//timetest = 0; // To verify ntick
+-			}
+-		ntick++;
+-		Ex += (tdiff - K);
+-		Ex2 += (tdiff - K) * (tdiff - K);
+-#endif
+ 			timetest++;
+ 			isnd=false;
+ 			pthread_mutex_lock(&delay_list_mutex);
+@@ -1608,11 +1560,6 @@
+ 			}
+ 		this_task = this_task->next;
+ 		}
+-#ifdef PROFILE_TIMER
+-	Mean = (K + Ex) / ntick;
+-	Var = sqrt((Ex2 - (Ex*Ex)/ntick) / (ntick-1));
+-	printf("timer error: samples %d min=%d ns max=%d ns avg=%f ns\n Variance=%f\n",ntick,tmin,tmax,Mean,Var);
+-#endif
+ 	printf("rqsystime = %d timetest= %d\n",reqsystime(),timetest);
+ 	printf("\n---------------------------\n");
+ 	}

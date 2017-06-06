@@ -1,0 +1,497 @@
+/*---------------- Creation Functions ------------*/
+.sp
+.SH NAME
+rqctsk \- create a task
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqctsk(STATIC_TASK_DESCRIPTOR *std)"
+.fi
+.SH DESCRIPTION
+Create a task from the supplied static task descriptor
+and make it ready.
+.sp
+.SH "RETURN VALUE"
+None. If the task created has higher priority than the calling task,
+then the calling task is preemped, and the newly created task becomes
+the running task. Otherwise control returns immediately to calling
+task.
+.sp
+.SH "ERRORS"
+If the stack can't be allocated, a system error is generated, and
+YALRT is frozen.
+.sp
+.SH "BUGS"
+No check is performed on priority. A priority of 255, which is
+forbidden, goes undetected.
+.sp
+--------------------------------------------
+.sp
+.SH NAME
+rqcxch \- create an exchange
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqcxch(EXCHANGE_DESCRIPTOR *exch)"
+.fi
+.SH DESCRIPTION
+The exchange structure is properly initialized for system usage.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far
+--------------------------------------------
+.sp
+.SH NAME
+rqcmsg \- create a message
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqmsg(MESSAGE_DESCRIPTOR *msg)"
+.fi
+.SH DESCRIPTION
+The message header is properly initialized for system usage.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+
+.sp
+/*---------------- Deletion Functions ------------*/
+.sp
+.SH NAME
+rqdtsk \- delete a task
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqdtsk(TASK_DESCRIPTOR *task)"
+.fi
+.SH DESCRIPTION
+The task is removed from the system, and the allocated stack is
+made free.
+An attempt to delete Linux task has no effect.
+Deleting an already deleted task has no effect.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+Deleting the running task ( rqdtsk(rqactv) )seems not to work properly.
+It is advisable to let the task suspend itself ( rqsusp(rqactv) ), and
+have it deleted later by another task, or by the module cleanup code,
+which runs in Linux task environment.
+.sp
+--------------------------------------------
+.sp
+.SH NAME
+rqdxch \- delete an exchange
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "int rqdxch(EXCHANGE_DESCRIPTOR *exch)"
+.fi
+.SH DESCRIPTION
+A check is performed on exchange usage. If the exchange is not
+in use then the caller is notified.
+.sp
+.SH "RETURN VALUE"
+A non-zero value if the exchange is unused, zero otherwise.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "NOTE"
+It's a pretty useless function which has been put there for
+completeness.
+.sp
+.SH "BUGS"
+The exchange is not removed from the exchange list, which is used by
+proc fs to display system status.
+.sp
+/*-------------  Suspend / Resume Task --------------------*/
+.sp
+
+.SH NAME
+rqsusp \- suspend a task
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqsusp(TASK_DESCRIPTOR *task)"
+.fi
+.SH DESCRIPTION
+If the task is running or ready, it is removed from the ready list,
+and queued in the suspend list.
+If the task is waiting, it is suspended as soon as it becomes ready.
+Suspending an already suspended task has no effect.
+.sp
+.SH "RETURN VALUE"
+None. If a task supend itself, the function will return only if the
+task is resumed by another task. If a task suspends another, control
+returns to calling task.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+--------------------------------------------
+.sp
+.SH NAME
+rqresm \- resume a suspended task
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqresm(TASK_DESCRIPTOR *task)"
+.fi
+.SH DESCRIPTION
+The task is removed from the suspend list and reintegrated in the
+ready list.
+Resuming a task which is not suspended has no effect.
+.sp
+.SH "RETURN VALUE"
+None. If the task resumed has higher priority than the calling task,
+then the calling task is preemped, and the resumed task becomes
+the running task.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+/*-----------Message passing SEND, WAIT, ACCEPT -----------*/
+.sp
+
+.SH NAME
+rqsend \- send a message to an exchange
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqsend (EXCHANGE_LIST_PTR exch, MSG_DESCRIPTOR *msg)"
+.fi
+.SH DESCRIPTION
+The message is queued to the exchange specified.
+.sp
+.SH "RETURN VALUE"
+None. If a task with higher priority than the calling task was waiting
+at the exchange, then the calling task is preemped, and the receiving
+task becomes the running task.
+.sp
+.SH "ERRORS"
+If the message sent doesn't belong to the task, or if the exchange
+was not properly created, a system error is generated, and Yalrt is
+frozen.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+--------------------------------------------
+.sp
+.SH NAME
+rqacpt \- check an exchange for an available message
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "MSG_DESCRIPTOR *rqacpt (EXCHANGE_LIST_PTR exch)"
+.fi
+.SH DESCRIPTION
+It is a non-blocking call to receive a message from an exchange.
+.sp
+.SH "RETURN VALUE"
+If a message is available, then a pointer to that message is returned.
+if no message is available, a NULL pointer is returned.
+.sp
+.SH "ERRORS"
+If the exchange was not properly created, a system error is generated,
+and Yalrt is frozen.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+--------------------------------------------
+.sp
+.SH NAME
+rqwait \- receive a message from an exchange
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "MSG_DESCRIPTOR *rqwait(EXCHANGE_LIST_PTR exch, unsigned short delay)"
+.fi
+.SH DESCRIPTION
+It is a blocking call to receive a message from an exchange.
+A non-zero "delay" specifies the amount of time in system tick units
+the task is willing to wait. A zero value means no limit.
+Waiting at an exchange where no other task is sending messages
+provides one-shot delay or periodic scheduling functionality.
+.sp
+.SH "RETURN VALUE"
+If a message is available, then a pointer to that message is returned
+immediately.
+If no message is available, the task is put in waiting state, and the
+next task in the ready list becomes the running task.
+When a message becomes available, the task is put again on the ready
+list, and it receives a pointer to the message.
+If a time was specified, and the time expires without a message being
+available, a pointer to a system message with type "timeout_type" is
+returned.
+.sp
+.SH "ERRORS"
+If the exchange was not properly created, a system error is generated,
+and Yalrt is frozen.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+/*----------------interrupt related functions--------------*/
+.sp
+.SH NAME
+rqisnd \- send the interrupt message associated with an
+interrupt exchange
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqisnd (INT_EXCHANGE_DESCRIPTOR *int_ex)"
+.fi
+.SH DESCRIPTION
+It is used by an interrupt handler (or interrupt subroutine, to use
+YALRT conventions), to send an interrupt message.
+Interrupt handlers aren't allowed to make system calls: rqisnd, rqendi
+and rqxsnd (not yet implemented) are the only calls allowed.
+It should be the last executable statement before return: as the
+interrupt handler executes in the running task context, any code
+following rqisnd will be executed only when (and if) the currently
+running task becomes again running, which can be largely unpredictable.
+.sp
+The canonical wai to terminate an interrupt handler is the following:
+.sp
+/* set a flag if rqisnd needed */
+if (flag) rqisnd(int_ex);
+    else rqendi(int_ex);
+    return;
+.sp
+.SH "RETURN VALUE"
+None. If a task was waiting at the interrupt exchange with a higher
+priority than the currently running task(in whose context the
+interrupt occurred), the current task is preempted and the waiting
+task is made running.
+.sp
+
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+
+--------------------------------------------
+.sp
+.SH NAME
+rqendi \- notify the end of service for an interrupt without sending
+an interrupt message
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqendi (INT_EXCHANGE_DESCRIPTOR *int_ex)"
+.fi
+.SH DESCRIPTION
+It is used by an interrupt handler (or interrupt subroutine, to use
+YALRT conventions), to notify that it's done, without sending  an
+interrupt message.
+Interrupt handlers aren't allowed to make system calls: rqisnd, rqendi
+and rqxsnd (not yet implemented) are the only calls allowed.
+It should be the last executable statement before return: as the
+interrupt handler executes in the running task context, any code
+following rqendi will be executed only when (and if) the currently
+running task becomes again running, which can be largely unpredictable.
+.sp
+The canonical wai to terminate an interrupt handler is the following:
+.sp
+/* set a flag if rqisnd needed */
+if (flag) rqisnd(int_ex);
+    else rqendi(int_ex);
+    return;
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "NOTE"
+Currently rqendi() does nothing, because interrupt acknowledge is
+performed by the RTAI dispatcher but there is no guarantee that it
+will stay that way. Therefore it's better to use it.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+
+--------------------------------------------
+.sp
+.SH NAME
+rqelvl \- enable an interrupt
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqelvl (int irq)"
+.fi
+.SH DESCRIPTION
+The interrupt irq becomes enabled. If no interrupt handler is
+associated with the interrupt, the default handler is used, which
+will append an interrupt message to the interrupt exchange whenever
+an interrupt occurs, with the type set to "int_type".
+If further interrupts arrive before the message is collected by some
+task, the type is changed into "missed_int_type".
+Enabling the timer interrupt (irq = TIMER_8254_IRQ) activates the
+system timer.
+    Calling rqelvl for an interrupt already enabled has no effect.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+Interrupt exchanges may be used also as regular exchanges, because the
+waiting task may tell apart interrupts from other messages by looking
+at the type. But calling rqelvl when a message is already queued to the
+interrupt exchange fails to initialize properly the interrupt message.
+.sp
+
+--------------------------------------------
+.sp
+.SH NAME
+rqdlvl \- disable an interrupt
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqdlvl (int irq)"
+.fi
+.SH DESCRIPTION
+The interrupt irq is disabled.
+Disabling the timer interrupt (irq = TIMER_8254_IRQ) de-activates the
+system timer.
+    Calling rqdlvl for an interrupt already disabled has no effect.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+
+--------------------------------------------
+.sp
+.SH NAME
+rqsetv \- assign an interrupt handler
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void reqsetv(int irq,void (*handler)(void))"
+.fi
+.SH DESCRIPTION
+The handler "handler" is assigned to the interrupt irq.
+If "*handler" is a NULL pointer, then the previous handler is
+de-activated and the default handler is re-installed.
+After a call to rqsetv, the corresponding interrupt is disabled,
+and a call to rqelvl is required to enable it.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+
+/*-------------  Suspend / Resume Full system --------------------*/
+.sp
+.SH NAME
+rqfreeze \- freeze YALRT and give control to Linux
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqfreeze(void)"
+.fi
+.SH DESCRIPTION
+All YALRT interrupts are disabled, all tasks are removed from the ready
+list, and the only task runnable is Linux.
+The saved status is available to the proc fs, which may show all
+relevant information.
+It's useful for debug, and for termination, because all resources can
+be removed without worrying about dependencies.
+Calling rqfreeze with YALRT already frozen has no effect.
+.sp
+.SH "RETURN VALUE"
+None. If called from within a task different from Linux, control
+doesn't return to the task unless the system is subsequently unfrozen
+(baked).
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+None I'm aware of, so far.
+.sp
+
+--------------------------------------------
+.sp
+.SH NAME
+rqbake \- unfreeze YALRT and resume operation
+.SH SYNOPSIS
+.fi
+.B #include <yalrt.h>
+.sp
+.BI "void rqbake(void)"
+.fi
+.SH DESCRIPTION
+The situation existing before rqfreeze is ripristinated.
+.sp
+.SH "RETURN VALUE"
+None. The task running when rqfreeze was called is made running again.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+.B Just one. IT DOESN'T WORK.
+.sp
+
+--------------------------------------------

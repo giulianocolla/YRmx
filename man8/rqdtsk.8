@@ -1,0 +1,28 @@
+.TH rqdtsk 8 "Nov 21,2015" "YRMX" "YRMX Deletion Functions"
+.SH NAME
+rqdtsk \- delete a task
+.SH SYNOPSIS
+.fi
+.B #include <ycore.h>
+.sp
+.BI "void rqdtsk( TASK_DESCRIPTOR *" task " ) "
+.fi
+.SH DESCRIPTION
+The task is removed from the system, and the allocated stack is
+made free.
+An attempt to delete Linux task has no effect.
+Deleting an already deleted task has no effect.
+.sp
+.SH "RETURN VALUE"
+None.
+.sp
+.SH "ERRORS"
+None.
+.sp
+.SH "BUGS"
+.RB "Deleting the running task " rqdtsk(rqactv) " seems not to work properly."
+.RB "It is advisable to let the task suspend itself " rqsusp(rqactv) " , and"
+have it deleted later by another task, or by the module cleanup code,
+which runs in Linux task environment.
+.SH "SEE ALSO"
+.BR rqctsk (8)

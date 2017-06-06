@@ -1,0 +1,28 @@
+.TH rqctsk 8 "Nov 21,2015" "YRMX" "YRMX Creation Functions"
+.SH NAME
+rqctsk \- create a task
+.SH SYNOPSIS
+.nf
+.B	#include <ycore.h>
+.sp	
+.BI	"void rqctsk(STATIC_TASK_DESCRIPTOR *" std " ) "
+.fi	
+.SH DESCRIPTION
+Create a task from the supplied static task descriptor
+and make it ready.
+
+.SH "RETURN VALUE"
+None. If the task created has higher priority than the calling task,
+then the calling task is preemped, and the newly created task becomes
+the running task. Otherwise control returns immediately to calling
+task.
+
+.SH "ERRORS"
+If the stack can't be allocated, a system error is generated, and
+YRMX is frozen.
+
+.SH "BUGS"
+No check is performed on priority. A priority of 255, which is
+forbidden, goes undetected.
+.SH "SEE ALSO"
+.BR rqdtsk (8)
