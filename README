@@ -1,0 +1,43 @@
+1) What is YRmx
+
+YRmx is a framework providing a small number  of API's which interface with the
+pthread library.
+
+It has a double  purpose: to provide improved performance  and encourage better
+programming practices in multi-threaded applications and to provide a tool much
+easier to learn and to maintain than using  direct calls to pthread library.
+
+2) Where it can be useful.
+
+YRmx is  oriented toward  event driven applications.  It can  be useful  in any
+multi-thread application which deal with real-time  events, ranging from system
+applications, such  as window and  display managers, web  servers etc.  to user
+applications for any kind of process control.
+
+3) What it requires.
+
+YRmx can be  used with any modern  Linux kernel, in principle on  any supported
+platform. If used  with an RT_PREEMPT enabled  kernel it will provide  the best
+real-time response,  but this is not  mandatory.
+
+With multicore processors the  best performance can be obtained  by pinning the
+real-time threads to a  specific core. Even better performance  may be achieved
+if the specific  core is unused by  the system (isolcpus=x in the  boot command
+line) but again this is not mandatory.
+
+If all those conditions are met, i.e. RT_PREEMPT kernel, and one core dedicated
+only to real-time tasks, then hard real-time  performances can be achieved from
+user-space applications.
+
+Currently it  has been tested  with x86 and  x86_64 architectures  on different
+Intel and AMD processors, and with ARM architecture (Raspberry PI 3).
+
+4) How it works
+
+The cornerstone  of YRmx is  the EXCHANGE.  An EXCHANGE is  nothing but  a data
+structure holding two  queues: a message queue and  a task queue. It  is a very
+simple thing,  but it provides all  the functionalities required  for real-time
+multitasking:  task   synchronization,  inter-task  communication   and  mutual
+exclusion.
+
+Only two API's are required for normal operation: RQSEND and RQWAIT. 
